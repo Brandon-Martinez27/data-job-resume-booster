@@ -1,4 +1,4 @@
-# Project Title
+# Data Job Classification
 ## About the Project
 ### Goals
 - Build a dataset of job postings with the field of data science, analytics, etc.
@@ -8,7 +8,7 @@
 
 ### Background
 
->As a Data Scientist seeking a job in-field, I thought it would be fun and useful to practice my skills using >NLP to classify jobs based on the posting descriptions from popular sites like LinkedIn. 
+>As a Data Scientist seeking a job in-field, I thought it would be fun and useful to practice my skills using NLP to classify jobs based on the posting descriptions from popular sites like LinkedIn. 
 >
 >Many candidates starting their search may have their resume's sidestepped by recruiters or a company's ATS system. I want to build a list of common words and phrases that each job title uses to hopefully increase candidate's chances by tailoring their individual skills/experience to match the job closer.
 
@@ -20,8 +20,24 @@
 
 ## Data Dictionary
 ## Initial Thoughts & Hypotheses
-
 ### Thoughts
+- I'll need to make sure my data is representative by including a variety of industries, balanced data from each label, and locations.
+- I need to create the labels for each job posting using regex, manually, or some form of normalization.
+- Each observation is a single job posting
+- I'll use the BeatifulSoup Library to webscrape and collect my data
+- Find n-grams, verbs, and phrases within the exploratory phase
+- Normalize, tokenize, stem or lemmatize words, and remove stop words
+- Features to include:
+  - Job Title (original) 
+  - Job label - target
+  - Company
+  - Location
+  - Remote - binary category
+  - Seniority level 
+  - Industry
+  - Job description - word vectors
+  - Top skills - word vectors
+  - Benefits - word vectors
 ### Hypotheses
 ## Project Steps
 ### Acquire
