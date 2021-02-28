@@ -37,3 +37,29 @@ def get_job_urls():
             # add 25 to the start to get the next set of entries
             count += 25
     return urls
+
+def get_all_urls(urls):
+    '''
+    This function scrapes all of the urls from
+    the URLS list and returns a complete list of urls.
+    '''
+    # create empty list
+    repo_urls = []
+    n=0
+    # loop through each url in urls list
+    for url in urls:
+        # Make request and soup object using helper function
+        soup = make_soup(url)
+        # delay 1 second between fetch
+        sleep(8)
+        n = n + 1
+        print(f"Scraping loop number {n}")
+        # Create a list of the anchor elements that hold the urls.
+        urls_list = soup.find_all('a', class_='v-align-middle')
+        # I'm using a set comprehension to return only unique urls.
+        urls_set = {'https://github.com' + link.get('href') for link in urls_list}
+        # I'm converting my set to a list of urls.
+        urls_set = list(urls_set)
+        # extend the list with a new url as an element
+        repo_urls.extend(urls_set)        
+    return repo_urls
