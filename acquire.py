@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+from datetime import datetime
 from requests import get
 from bs4 import BeautifulSoup
 from time import sleep
@@ -63,3 +63,34 @@ def get_all_urls(urls):
         # extend the list with a new url as an element
         repo_urls.extend(urls_set)        
     return repo_urls
+
+def get_record(card):
+    '''
+    Extract job data from a single record
+    '''
+    # access the 'a' tag that corresponds to the job title
+    atag = card.h2.a
+    # get the title text as a string
+    job_title = atag.get('title')
+    # get the url of the job using the root
+    job_url = 'https://www.indeed.com' + atag.get('href')
+    # get the company name 
+    company = card.find('span', class_='company').text.strip()
+    # get job location
+    job_location = card.find('div' , class_='recJobLoc').get('data-rc-loc')
+    # get job summary (need to replace with entire job description)
+    job_summary = card.find('div', class_='summary').text.strip().replace('\n', ' ')
+    # when the job was posted relative to today
+    post_date = card.find('span', class_='date').text
+    # today's date
+    today = datetime.today().strftime('%Y-%m-%d')
+    # get the job salary
+    try:
+        job_salary = card.find('span', class_='salaryText').text.strip()
+    except AttributeError:
+        job_salary = ''
+
+    # use tuple to assign each record's data
+    record = (job_title, company, job_location, post_date, job_summary, job_salary, job_url)
+
+    return record
