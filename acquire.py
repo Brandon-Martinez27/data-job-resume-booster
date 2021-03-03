@@ -64,6 +64,13 @@ def get_all_urls(urls):
         repo_urls.extend(urls_set)        
     return repo_urls
 
+def get_url(position):
+    '''
+    Generate a url from job title
+    '''
+    url = f'https://www.indeed.com/jobs?q={position}&l=United+States'
+    return url
+
 def get_record(card):
     '''
     Extract job data from a single record
