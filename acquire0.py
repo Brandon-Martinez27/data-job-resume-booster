@@ -75,42 +75,84 @@ def get_job_content(urls, cached=False):
     with default cached == False which scrapes the job_title, and  
     readme text for each url, creates a list of dictionaries with 
     the title and text for each blog, converts list to df, and returns 
-    df. If cached == True, the function returns a df from a json file.
+    df. If cached == True, the function returns a df from a json file..
+
+    Try and except statements are in place in case a variable isn't indicated.
+    We will replace it with an empty string
     '''
     if cached == True:
-        df = pd.read_json('github_repos.json')
+        df = pd.read_json('indeed-data-jobs.json')
         
     # cached == False completes a fresh scrape for df     
     else:
 
         # Create an empty list to hold dictionaries
-        articles = []
-        n=0
+        records = []
+        n = 0
         # Loop through each url in our list of urls
         for url in urls:
-
             # Make request and soup object using helper
             soup = make_soup(url)
             sleep(1)
             n = n + 1
             print(f"Scraping loop number {n}")
-            # Save the programming language of each repo in variable language
-            language = soup.find('span', class_='text-gray-dark text-bold mr-1').text
+            
+            # access the job title
+            try:
+                job_title = job_title = soup.find('h1').text.strip()
+            except AttributeError:
+                job_title = ''
+            
+            # access the company
+            try:
+                company = soup.find('div', 'icl-u-lg-mr--sm icl-u-xs-mr--xs').text.strip()
+            except AttributeError:
+                company = ''
 
-            # Save the text in each repo to variable content
-            content = soup.find('article', class_="markdown-body entry-content container-lg").text
+            # access the location
+            try:
+                location = soup.find('div', 'icl-u-xs-mt--xs icl-u-textColor--secondary jobsearch-JobInfoHeader-subtitle jobsearch-DesktopStickyContainer-subtitle').contents[1].text
+            except AttributeError:
+                location = ''
+            
+            # is the position remote
+            try:
+                if soup.find('div', 'icl-u-xs-mt--xs icl-u-textColor--secondary jobsearch-JobInfoHeader-subtitle jobsearch-DesktopStickyContainer-subtitle').contents[2].text == 'Remote':
+                    remote = 1
+            except IndexError:
+                remote = 0
 
-            # Create a dictionary holding the title and content for each blog
-            article = {'language': language, 'content': content}
+            # access salary
+            try:
+                salary = soup.find('span', 'icl-u-xs-mr--xs').text
+            except AttributeError:
+                salary = ''
+            
+            # access post date from access
+            try:
+                post_date = soup.find('div', 'jobsearch-JobMetadataFooter').contents[1].text
+            except AttributeError:
+                post_date = ''
 
-            # Add each dictionary to the articles list of dictionaries
-            articles.append(article)
+            # today's date
+            today = datetime.today().strftime('%Y-%m-%d')
+
+            # access full job description text
+            job_description = soup.find('div', {'id':'jobDescriptionText', 'class':'jobsearch-jobDescriptionText'}).text.strip().replace('\n', ' ')
+            
+            # Create a dictionary holding the variables for each job
+            job = {'job_title': job_title, 'company': company, 'location': location, 
+                'is_remote': remote, 'salary': salary, 'post_date': post_date, 
+                'date_accessed': today, 'job_description': job_description}
+
+            # Add each dictionary to the records list of dictionaries
+            records.append(job)
             
         # convert our list of dictionaries to a df
-        df = pd.DataFrame(articles)
+        df = pd.DataFrame(records)
 
         # Write df to a json file for faster access
-        df.to_json('github_repos.json')
+        # df.to_json('indeed-data-jobs.json')
     
     return df
 
