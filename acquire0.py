@@ -11,9 +11,15 @@ def make_soup(url):
     This helper function takes in a url and uses requests module to
     parse HTML from the page returning a soup object. We can then use
     the soup object to call various methods to get the parts of the page
-    that we need like, job title, and links to job postings.
+    that we need like, job title, and links to job postings. UPDATE:
+    implemented random string generator to get passed CAPTCHA when scrapping
     '''
-    headers = {'User-Agent': 'brandmarz'} 
+    import random
+    import string
+    
+    rand_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(10))
+    
+    headers = {'User-Agent': rand_string} 
     response = get(url, headers=headers)    
     soup = BeautifulSoup(response.text, 'html.parser')
     return soup
@@ -47,16 +53,18 @@ def get_all_cards(urls):
     '''
     This function scrapes the url from each job card within each page of 
     the search result urls and returns a complete list of urls for each job.
-    '''
+    UPDATE: added random number generator to get past Captcha'''
     # create empty list
     job_urls = []
     n = 0
+    import random
+    rand_int = random.randint(1,9)
     # loop through each url in urls list
     for url in urls:
         # Make request and soup object using helper function
         soup = make_soup(url)
         # delay 1 second between fetch
-        sleep(1)
+        sleep(rand_int)
         n = n + 1
         print(f"Scraping loop number {n}")
         # Create a list of the divider elements that hold the job cards.
@@ -85,7 +93,8 @@ def get_job_content(urls, cached=False):
         
     # cached == False completes a fresh scrape for df     
     else:
-
+        import random
+        rand_int = random.randint(1,5)
         # Create an empty list to hold dictionaries
         records = []
         n = 0
@@ -93,13 +102,13 @@ def get_job_content(urls, cached=False):
         for url in urls:
             # Make request and soup object using helper
             soup = make_soup(url)
-            sleep(1)
+            sleep(rand_int)
             n = n + 1
-            print(f"Scraping loop number {n}")
+            print(f"Loop number {n}")
             
             # access the job title
             try:
-                job_title = job_title = soup.find('h1').text.strip()
+                job_title = job_title = soup.find('h1', 'icl-u-xs-mb--xs icl-u-xs-mt--none jobsearch-JobInfoHeader-title').text.strip()
             except AttributeError:
                 job_title = ''
             
@@ -117,7 +126,7 @@ def get_job_content(urls, cached=False):
             
             # is the position remote
             try:
-                if soup.find('div', 'icl-u-xs-mt--xs icl-u-textColor--secondary jobsearch-JobInfoHeader-subtitle jobsearch-DesktopStickyContainer-subtitle').contents[2].text == 'Remote':
+                if soup.find('div', 'icl-u-xs-mt--xs icl-u-textColor--secondary jobsearch-JobInfoHeader-subtitle jobsearch-DesktopStickyContainer-subtitle').contents[2].text != None:
                     remote = 1
             except IndexError:
                 remote = 0
@@ -130,7 +139,10 @@ def get_job_content(urls, cached=False):
             
             # access post date from access
             try:
-                post_date = soup.find('div', 'jobsearch-JobMetadataFooter').contents[1].text
+                if (soup.find('div', 'jobsearch-JobMetadataFooter').contents[1].text)[0].isdigit():
+                    post_date = soup.find('div', 'jobsearch-JobMetadataFooter').contents[1].text
+                elif (soup.find('div', 'jobsearch-JobMetadataFooter').contents[0].text)[0].isdigit():
+                    post_date = soup.find('div', 'jobsearch-JobMetadataFooter').contents[0].text
             except AttributeError:
                 post_date = ''
 
@@ -155,5 +167,3 @@ def get_job_content(urls, cached=False):
         # df.to_json('indeed-data-jobs.json')
     
     return df
-
-print('Acquire module loaded')
