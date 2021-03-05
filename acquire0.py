@@ -83,13 +83,14 @@ def get_all_cards(urls):
 def get_job_content(urls, i, cached=False):
     '''
     This function takes in a list of Job urls and a parameter
-    with default cached == False which scrapes the job_title, and  
-    readme text for each url, creates a list of dictionaries with 
-    the title and text for each blog, converts list to df, and returns 
-    df. If cached == True, the function returns a df from a json file..
+    with default cached == False which scrapes the job_title, company, 
+    location, remote, salary, post_date, access_date, and job_description 
+    for each url, creates a list of dictionaries with the the features mentioned 
+    for each job, converts list to df, and returns df. If cached == True, 
+    the function returns a df from a json file.
 
     Try and except statements are in place in case a variable isn't indicated.
-    We will replace it with an empty string
+    We will replace it with an empty string.
     '''
     if cached == True:
         df = pd.read_json(f'indeed-data-jobs{i}.json')
