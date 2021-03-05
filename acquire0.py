@@ -162,7 +162,7 @@ def get_job_content(urls, i, cached=False):
                 job_description = soup.find('div', {'id':'jobDescriptionText', 'class':'jobsearch-jobDescriptionText'}).text.strip().replace('\n', ' ')
             except AttributeError:
                 job_description = ''
-                print('NO JOB DESC, Check Record.')
+                print('^ NO JOB DESC, Check Record. \n')
 
             # Create a dictionary holding the variables for each job
             job = {'job_title': job_title, 'company': company, 'location': location, 
