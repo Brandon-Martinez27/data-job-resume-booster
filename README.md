@@ -43,9 +43,13 @@
   - Job description - word vectors
   - Top skills - word vectors
   - Benefits - word vectors
+
 ### Hypotheses
+
 ## Project Steps
 ### Acquire
+Created a series of functions to extract the data from indeed using the Beautiful Soup library. The idea was to parse the html of each job posting and reference different elements to obtain each variable.
+1. `make_soup`: takes in a url and uses the requests module to parse HTML from the page returning a soup object. We can then use the soup object to call various methods to get the parts of the page that we need like, job title, and job description. I had to implement a random string generator as a user agent to get past CAPTCHA when scrapping. This is because a website detects strange activity like scrapping too frequently.
 ### Prepare
 ### Explore
 ### Model
