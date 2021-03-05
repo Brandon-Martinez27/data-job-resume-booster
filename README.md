@@ -17,6 +17,11 @@
 - A CSV of the most common words and phrases for each job title
 
 ### Acknowledgments
+- Data scrapped from [Indeed](https://www.indeed.com)
+- [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#kinds-of-objects)
+- Project inspired by [Codeup](https://codeup.com/)'s NLP Project
+- Getting past [CAPTCHA](https://proxyway.com/guides/how-to-bypass-captcha)'s
+- Inspiration for building scrapper: [here](https://github.com/israel-dryer/Indeed-Job-Scraper)
 
 ## Data Dictionary
 ## Initial Thoughts & Hypotheses
