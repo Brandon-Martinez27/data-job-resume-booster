@@ -18,7 +18,7 @@ def make_soup(url):
     import string
     
     rand_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(10))
-    
+    print(f'User: {rand_string}')
     headers = {'User-Agent': rand_string} 
     response = get(url, headers=headers)    
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -57,10 +57,13 @@ def get_all_cards(urls):
     # create empty list
     job_urls = []
     n = 0
-    import random
-    rand_int = random.randint(1,9)
     # loop through each url in urls list
     for url in urls:
+        # generates a random number between 1 and 8
+        # to simulate "human" like activity
+        import random
+        rand_int = random.randint(1,9)
+        print(f'Interval {rand_int}')
         # Make request and soup object using helper function
         soup = make_soup(url)
         # delay 1 second between fetch
@@ -77,7 +80,7 @@ def get_all_cards(urls):
         job_urls.extend(card_set)        
     return job_urls
 
-def get_job_content(urls, cached=False):
+def get_job_content(urls, i, cached=False):
     '''
     This function takes in a list of Job urls and a parameter
     with default cached == False which scrapes the job_title, and  
@@ -89,23 +92,26 @@ def get_job_content(urls, cached=False):
     We will replace it with an empty string
     '''
     if cached == True:
-        df = pd.read_json('indeed-data-jobs.json')
+        df = pd.read_json(f'indeed-data-jobs{i}.json')
         
     # cached == False completes a fresh scrape for df     
     else:
-        import random
-        rand_int = random.randint(1,5)
+    
         # Create an empty list to hold dictionaries
         records = []
         n = 0
         # Loop through each url in our list of urls
         for url in urls:
+        # generates a random number between 1 and 8
+        # to simulate "human" like activity            
+            import random
+            rand_int = random.randint(1,5)
             # Make request and soup object using helper
             soup = make_soup(url)
             sleep(rand_int)
             n = n + 1
-            print(f"Loop number {n}")
-            
+            print(f"Loop number: {n}")
+            print(f'Interval: {rand_int} seconds \n')
             # access the job title
             try:
                 job_title = job_title = soup.find('h1', 'icl-u-xs-mb--xs icl-u-xs-mt--none jobsearch-JobInfoHeader-title').text.strip()
@@ -129,6 +135,8 @@ def get_job_content(urls, cached=False):
                 if soup.find('div', 'icl-u-xs-mt--xs icl-u-textColor--secondary jobsearch-JobInfoHeader-subtitle jobsearch-DesktopStickyContainer-subtitle').contents[2].text != None:
                     remote = 1
             except IndexError:
+                remote = 0
+            except AttributeError:
                 remote = 0
 
             # access salary
@@ -164,6 +172,7 @@ def get_job_content(urls, cached=False):
         df = pd.DataFrame(records)
 
         # Write df to a json file for faster access
-        # df.to_json('indeed-data-jobs.json')
+        # "i" is a number to indicate a file with a different set of records
+        df.to_json(f'indeed-data-jobs{i}.json')
     
     return df
