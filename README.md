@@ -1,4 +1,4 @@
-# Data Job Classification
+# Data Job Resume Booster
 ## About the Project
 ### Goals
 - Build a dataset of job postings with the field of data science, analytics, etc.
