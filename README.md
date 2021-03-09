@@ -48,9 +48,9 @@
   - Benefits - word vectors
 
 ### Hypotheses
-- Data science jobs are more generalized, where they can focus on any part of the pipeline from data acquistition to delivery. So a data scientist job will involve a variety of technical tools like: Python, SQL, visualization tools like Tableau, distributed and cloud environments like Spark and AWS, various Machine Learning techniques and possbily deep learning.
-- Data Analyst jobs involve more about drawing insights from data with dashboards and data visualation tools. A big part of this job and the others as well will be soft skills like: communication among various other teams in a company, making insights and technical concepts understandable in non-technical language, and having some domain knowledge depending on the industry.
-- Data Enginering roles would be centered on creating data pipelines and warehouses. This positions is more heavily programming oriented and will require skills like: advanced python, SQL, and even cloud-computing. ETL is a also very common in these roles. 
+- *Data scientist* jobs are more generalized, where they can focus on any part of the pipeline from data acquistition to delivery. So a data scientist job will involve a variety of technical tools like: Python, SQL, visualization tools like Tableau, distributed and cloud environments like Spark and AWS, various Machine Learning techniques and possbily deep learning.
+- *Data Analyst* jobs involve more about drawing insights from data with dashboards and data visualation tools. A big part of this job and the others as well will be soft skills like: communication among various other teams in a company, making insights and technical concepts understandable in non-technical language, and having some domain knowledge depending on the industry.
+- *Data Enginering* roles would be centered on creating data pipelines and warehouses. This positions is more heavily programming oriented and will require skills like: advanced python, SQL, and even cloud-computing. ETL is a also very common in these roles. 
 
 ## Project Steps
 ### Acquire
