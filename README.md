@@ -1,20 +1,21 @@
 # Data Job Resume Booster
 ## About the Project
 ### Goals
-- Build a dataset of job postings with the field of data science, analytics, etc.
-- Create labels for each job posting; for example, data scientist, data engineer, etc.
+- Build a dataset of job postings with the field of data science & analytics.
+- Create labels for each job posting. For example: data scientist, data engineer, etc.
 - Develop a machine learning model to classify a job based on description text
 - Identify the most common words and phrases for each label
 
 ### Background
 
->As a Data Scientist seeking a job in-field, I thought it would be fun and useful to practice my skills using NLP to classify jobs based on the posting descriptions from popular sites like LinkedIn. 
+>As a Data Scientist seeking a job in-field, I thought it would be fun and useful to practice my skills using NLP to classify jobs based on the posting descriptions from a popular job hosting site like Indeed. 
 >
->Many candidates starting their search may have their resume's sidestepped by recruiters or a company's ATS system. I want to build a list of common words and phrases that each job title uses to hopefully increase candidate's chances by tailoring their individual skills/experience to match the job closer.
+>Many candidates starting their search may have their resume's sidestepped by recruiters or a company's ATS system based on lack of key skills, buzzwords, and phrases that 'fit' the job. I want to build a list of common words and phrases that each job title uses to hopefully increase candidate's chances by tailoring their individual skills & experience to better match the job they're looking for.
 
 ### Deliverables
-- A script that runs the classification model
-- A CSV of the most common words and phrases for each job title
+- A script that runs the classification model.
+- A CSV of the most common words and phrases for each job title.
+- A Jupyter Notebook walkthrough of my process, thoughts, and takeaways.
 
 ### Acknowledgments
 - Data scrapped from [Indeed](https://www.indeed.com)
@@ -45,6 +46,9 @@
   - Benefits - word vectors
 
 ### Hypotheses
+- Data science jobs are more generalized, where they can focus on any part of the pipeline from data acquistition to delivery. So a data scientist job will involve a variety of technical tools like: Python, SQL, visualization tools like Tableau, distributed and cloud environments like Spark and AWS, various Machine Learning techniques and possbily deep learning.
+- Data Analyst jobs involve more about drawing insights from data with dashboards and data visualation tools. A big part of this job and the others as well will be soft skills like: communication among various other teams in a company, making insights and technical concepts understandable in non-technical language, and having some domain knowledge depending on the industry.
+- Data Enginering roles would be centered on creating data pipelines and warehouses. This positions is more heavily programming oriented and will require skills like: advanced python, SQL, and even cloud-computing. ETL is a also very common in these roles. 
 
 ## Project Steps
 ### Acquire
@@ -56,6 +60,8 @@ Created a series of functions to extract the data from indeed using the Beautifu
 5. **Takeaways**: I ran the `get_job_content` function in 5 separate parts to essentially save my progress in case I happened to run into an error with the url's content while scrapping. Finally I used pandas to concatenate them into a single dataframe for preparation and preprocessing.
 
 ### Prepare
+
+
 ### Explore
 ### Model
 ### Conclusions
