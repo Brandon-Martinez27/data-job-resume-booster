@@ -62,7 +62,15 @@ Created a series of functions to extract the data from indeed using the Beautifu
 5. **Takeaways**: I ran the `get_job_content` function in 5 separate parts to essentially save my progress in case I happened to run into an error with the url's content while scrapping. Finally I used pandas to concatenate them into a single dataframe for preparation and preprocessing.
 
 ### Prepare
+The preparation phase involved finding a way to create labels for the data I acquired and making sure I was keeping the data integrity by removing any jobs that weren't part of the targets I was looking for. Creating labels involved manually using the index to label sets of data with the corresponding label. Since my web scaper acquired a set of data for one label before the other, I found the cut-offs for each label arounf 224 rows, more or less. Other rows that weren't correctly labeled were filtered using regex.
 
+1. `prep_create_labels`:
+- removes rows without a description
+- creates labels based on index
+- added these labels as a column to the dataframe from a list
+- handled nulls by filtering titles that weren't explicit based on job title.
+- used regex to further filter relevant rows
+- combined data back to the original dataframe with all labels created.
 
 ### Explore
 ### Model
