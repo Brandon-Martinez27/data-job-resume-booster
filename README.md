@@ -77,7 +77,6 @@ The preparation phase involved finding a way to create labels for the data I acq
 5. `lemmatize`: This function takes in string for and returns a string with words lemmatized.
 6. `remove_stopwords`:  This function takes in a string, optional extra_words and exclude_words parameters with default empty lists and returns a string.
 7. `prep_job_data`: This function take in a df and the string name for a text column with option to pass lists for extra_words and exclude_words and returns a df with the text article title, original text, stemmed text, lemmatized text, cleaned, tokenized, & lemmatized text with stopwords removed.
-8. 
 ### Explore
 ### Model
 ### Conclusions
