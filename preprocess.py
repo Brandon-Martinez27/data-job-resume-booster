@@ -15,7 +15,7 @@ def basic_clean(string):
     This function takes in a string and
     returns the string normalized.
     '''
-    string = unicodedata.normalize('NFKD', string)\ 
+    string = unicodedata.normalize('NFKD', string)\
              .encode('ascii', 'ignore')\
              .decode('utf-8', 'ignore')
     string = re.sub(r'[^\w\s]', '', string).lower()
@@ -137,20 +137,22 @@ def add_columns(df):
     df = pd.concat([df, pd.DataFrame({'words': words})], axis=1)
 
     # add a column that shows the length 
-    df['doc_length'] = [len(wordlist) for wordlist in df.words]
+    doc_length = [len(wordlist) for wordlist in df.words]
+    df = pd.concat([df, pd.DataFrame({'doc_length': doc_length})], axis=1)
+    
     return df
 
-def split_repo_data(df):
+def split_job_data(df):
     from sklearn.model_selection import train_test_split
 
-    train_validate, test = train_test_split(df[['language', 
+    train_validate, test = train_test_split(df[['label', 'job_title', 'company', 'location', 'is_remote',
                             'clean', 'words', 'doc_length']], 
-                                        stratify=df.language, 
+                                        stratify=df.label, 
                                         test_size=.2, 
                                         random_state=123)
 
     train, validate = train_test_split(train_validate, 
-                                   stratify=train_validate.language, 
+                                   stratify=train_validate.label, 
                                    test_size=.25,
                                    random_state=123)
     return train, validate, test
