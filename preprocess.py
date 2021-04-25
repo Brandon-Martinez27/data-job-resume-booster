@@ -153,6 +153,6 @@ def split_job_data(df):
 
     train, validate = train_test_split(train_validate, 
                                    stratify=train_validate.label, 
-                                   test_size=.25,
+                                  test_size=.25,
                                    random_state=123)
     return train, validate, test
