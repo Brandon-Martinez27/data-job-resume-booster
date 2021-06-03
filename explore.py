@@ -1,5 +1,5 @@
 import pandas as pd
-
+import re
 import matplotlib.pyplot as plt
 
 def words_by_label(df):
@@ -19,3 +19,13 @@ def words_by_label(df):
     all_words = re.sub(r'\s.\s', '', all_words).split()
 
     return da_words, ds_words, de_words, mle_words, all_words
+
+def freq_by_label(da_words, ds_words, de_words, mle_words, all_words):
+    # transform each label string into a pandas Series
+    da_freq = pd.Series(da_words).value_counts()
+    ds_freq = pd.Series(ds_words).value_counts()
+    de_freq = pd.Series(de_words).value_counts()
+    mle_freq = pd.Series(mle_words).value_counts()
+    all_freq = pd.Series(all_words).value_counts()
+
+    return da_freq, ds_freq, de_freq, mle_freq, all_freq
