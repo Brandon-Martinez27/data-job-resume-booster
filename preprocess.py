@@ -145,8 +145,8 @@ def add_columns(df):
 def split_job_data(df):
     from sklearn.model_selection import train_test_split
 
-    train_validate, test = train_test_split(df[['label', 'job_title', 'company', 'location', 'is_remote',
-                            'clean', 'words', 'doc_length']], 
+    train_validate, test = train_test_split(df[['label', 'job_title',
+                            'clean', 'words', 'doc_length']],
                                         stratify=df.label, 
                                         test_size=.2, 
                                         random_state=123)
